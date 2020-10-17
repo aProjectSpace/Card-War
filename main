@@ -1,0 +1,5 @@
+import tKinter as tk
+import random as r
+
+playerName = False
+playerName2 = False
