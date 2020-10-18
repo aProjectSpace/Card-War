@@ -3,8 +3,6 @@ import os
 import winsound as ws
 from threading import Timer
 
-timer = time.time()
-
 msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have some ale, if you don't mind I would like to listen to your story.\n",
 "Me: Very well. I was a guard in the palace, they conspired against me once I didn't accept their deal to smuggle goods.\n",
 "Innkeeper: What did the queen do?\n",
