@@ -22,19 +22,21 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 def messages(num, sound):
     print(msg[num])
     ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
+    if (num != 13):
+        t[num+1].start()
 
-t0 = Timer(2.0, messages, (0, "innkeeper1.wav"))
-t1 = Timer(12.0, messages, (1, "me1.wav"))
-t2 = Timer(5.0, messages, (2), "innkeeper2.wav")
-t3 = Timer(8.0, messages, (3, "me2.wav"))
-t4 = Timer(9.0, messages, (4, "innkeeper3.wav"))
-t5 = Timer(4.0, messages, (5, "me3.wav"))
-t6 = Timer(7.0, messages, (6, "innkeeper4.wav"))
-t7 = Timer(5.0, messages, (7, "me4.wav"))
-t8 = Timer(40.0, messages, (8, "innkeeper5.wav"))
-t9 = Timer(4.0, messages, (9, "me5.wav"))
-t10 = Timer(11.0, messages, (10, "innkeeper6.wav"))
-t11 = Timer(6.0, messages, (11, "me6.wav"))
-t12 = Timer(7.0, messages, (12, "innkeeper7.wav"))
+t = [ Timer(2.0, messages, (0, "innkeeper1.wav)),
+Timer(12.0, messages, (1, "me1.wav")),
+Timer(5.0, messages, (2), "innkeeper2.wav"),
+Timer(8.0, messages, (3, "me2.wav")),
+Timer(9.0, messages, (4, "innkeeper3.wav")),
+Timer(4.0, messages, (5, "me3.wav")),
+Timer(7.0, messages, (6, "innkeeper4.wav")),
+Timer(5.0, messages, (7, "me4.wav")),
+Timer(40.0, messages, (8, "innkeeper5.wav")),
+Timer(4.0, messages, (9, "me5.wav")),
+Timer(11.0, messages, (10, "innkeeper6.wav")),
+Timer(6.0, messages, (11, "me6.wav")),
+Timer(7.0, messages, (12, "innkeeper7.wav"))]
 
-t0.start()
+t[0].start()
