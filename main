@@ -4,8 +4,14 @@ import random as r
 playerName = False
 playerName2 = False
 
-rmdCards = [ [ ], [ ] ]
+rmdCards = [[], []]
 
-def getNumber():
+def pickBetweenThreeNumber(plr):
+    
+def getNumber(plr):
     ran = r.randint(0,12)
-rmdcards[0]
+    for i in rmdCards[plr]:
+        if (i == ran):
+            return getNumber()
+    rmdCards[plr].append(ran)
+    return ran
