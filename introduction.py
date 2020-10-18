@@ -20,7 +20,7 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 "Innkeeper: May he who is known as *I am* lighten your path.\n"]
 
 def messages(num, sound):
-    print(msg[num][0])
+    print(msg[num])
     num = num + 1
     ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
 
