@@ -8,4 +8,4 @@ rmdCards = [ [ ], [ ] ]
 
 def getNumber():
     ran = r.randint(0,12)
-rmdcards=[0]
+rmdcards[0]
