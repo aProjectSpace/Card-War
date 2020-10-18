@@ -2,7 +2,7 @@ import time
 import os
 import winsound as ws
 from threading import Timer
-#ws.PlaySound(os.getcwd()+"/1.wav", ws.SND_NODEFAULT)
+
 timer = time.time()
 
 msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have some ale, if you don't mind I would like to listen to your story.\n",
@@ -22,7 +22,7 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 def messages(num, sound):
     print(msg[num][0])
     num = num + 1
-    
+    ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
 
 t0 = Timer(2.0, messages, (0, "innkeeper1.wav"))
 t1 = Timer(12.0, messages, (1, "me1.wav"))
