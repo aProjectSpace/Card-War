@@ -20,15 +20,16 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 t0 = Timer(2.0, messages, (0, "innkeeper1.wav))
 t1 = Timer(12.0, messages, (1, "me1.wav"))
 t2 = Timer(5.0, messages, (2, "innkeeper2.wav"))
-
-   
-
-
-
-
-
-
-
+t3 = Timer(8.0, messages, (3, "me2.wav"))
+t4 = Timer(9.0, messages, (4, "innkeeper3.wav"))
+t5 = Timer(4.0, messages, (5, "me3.wav"))
+t6 = Timer(7.0, messages, (6, "innkeeper4.wav"))
+t7 = Timer(5.0, messages, (7, "me4.wav"))
+t8 = Timer(40.0, messages, (8, "innkeeper5.wav"))
+t9 = Timer(4.0, messages, (9, "me5.wav"))
+t10 = Timer(11.0, messages, (10, "innkeeper6.wav"))
+t11 = Timer(6.0, messages, (11, "me6.wav"))
+t12 = Timer(7.0, messages, (12, "innkeeper7.wav"))
 
 def messages(num, sound):
     #ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
@@ -37,55 +38,31 @@ def messages(num, sound):
 
 def launchTimer(num):
     global t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12
-    global t1
-    global t2
-    global t3
-    global t4
-    global t5
-    global t6
-    global t7
-    global t8
-    global t9
-    global t10
-    global t11
-    global t12
     if (num == 0):
         t0.start()
     elseif (num == 1):
-        
         t1.start()
     elseif (num == 2):
-        
         t2.start()
     elseif (num == 3):
-        t3 = Timer(8.0, messages, (3, "me2.wav"))
         t3.start()
     elseif (num == 4):
-        t4 = Timer(9.0, messages, (4, "innkeeper3.wav"))
         t4.start()
     elseif (num == 5):
-        t5 = Timer(4.0, messages, (5, "me3.wav"))
         t5.start()
     elseif (num == 6):
-        t6 = Timer(7.0, messages, (6, "innkeeper4.wav"))
         t6.start()
-    elseif (num == 7):
-        t7 = Timer(5.0, messages, (7, "me4.wav"))
+    elseif (num == 7): 
         t7.start()
-    elseif (num == 8):
-        t8 = Timer(40.0, messages, (8, "innkeeper5.wav"))
+    elseif (num == 8): 
         t8.start()
     elseif (num == 9):
-        t9 = Timer(4.0, messages, (9, "me5.wav"))
         t9.start()
     elseif (num == 10):
-        t10 = Timer(11.0, messages, (10, "innkeeper6.wav"))
         t10.start()
     elseif (num == 11):
-        t11 = Timer(6.0, messages, (11, "me6.wav"))
         t11.start()
-    elseif (num == 12):
-        t12 = Timer(7.0, messages, (12, "innkeeper7.wav"))
+    elseif (num == 12): 
         t12.start()
                               
 launchTimer(0)
