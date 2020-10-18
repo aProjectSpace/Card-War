@@ -45,9 +45,9 @@ def pickBetweenThreeNumber(plr):
 
 def startGame():
     r0, r1, rS0, rS1 = getNumber(0), getNumber(0), getNumber(1), getNumber(1)
-    print(str(r0) + "    " + str(r1) + "    " + str(rS0) + "    " + str(rS1))
+    print(r0 + "    " + r1 + "    " + rS0 + "    " + rS1)
     a, b, c = pickBetweenThreeNumber(0)
-    print(str(a) + "    " + str(b) + "    " + str(c))
+    print(a + "    " + strb + "    " + c)
 
 startGame()
 
