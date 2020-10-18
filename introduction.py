@@ -20,35 +20,35 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 def messages(num, sound):
     print(msg[num])
     ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
-    if (num != 13):
-        t[num+1].start()
+    if (num != 12):
+        launchTimer(num+1)
 
 def launchTimer(num):
     if (num == 0):
-        Timer(2.0, messages, (0, "innkeeper1.wav))
+        Timer(2.0, messages, (0, "innkeeper1.wav)).start()
     elseif (num == 1):
-        Timer(12.0, messages, (1, "me1.wav"))
+        Timer(12.0, messages, (1, "me1.wav")).start()
     elseif (num == 2):
-        Timer(5.0, messages, (2, "innkeeper2.wav")
+        Timer(5.0, messages, (2, "innkeeper2.wav").start()
     elseif (num == 3):
-        Timer(8.0, messages, (3, "me2.wav"))
+        Timer(8.0, messages, (3, "me2.wav")).start()
     elseif (num == 4):
-        Timer(9.0, messages, (4, "innkeeper3.wav"))
+        Timer(9.0, messages, (4, "innkeeper3.wav")).start()
     elseif (num == 5):
-        Timer(4.0, messages, (5, "me3.wav"))
+        Timer(4.0, messages, (5, "me3.wav")).start()
     elseif (num == 6):
-        Timer(7.0, messages, (6, "innkeeper4.wav"))
+        Timer(7.0, messages, (6, "innkeeper4.wav")).start()
     elseif (num == 7):
-        Timer(5.0, messages, (7, "me4.wav"))
+        Timer(5.0, messages, (7, "me4.wav")).start()
     elseif (num == 8):
-        Timer(40.0, messages, (8, "innkeeper5.wav"))
+        Timer(40.0, messages, (8, "innkeeper5.wav")).start()
     elseif (num == 9):
-        Timer(4.0, messages, (9, "me5.wav"))
+        Timer(4.0, messages, (9, "me5.wav")).start()
     elseif (num == 10):
-        Timer(11.0, messages, (10, "innkeeper6.wav"))
+        Timer(11.0, messages, (10, "innkeeper6.wav")).start()
     elseif (num == 11):
-        Timer(6.0, messages, (11, "me6.wav"))
+        Timer(6.0, messages, (11, "me6.wav")).start()
     elseif (num == 12):
-        Timer(7.0, messages, (12, "innkeeper7.wav"))
+        Timer(7.0, messages, (12, "innkeeper7.wav")).start()
                               
 launchTimer(0)
