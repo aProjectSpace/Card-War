@@ -21,7 +21,6 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 
 def messages(num, sound):
     print(msg[num])
-    num = num + 1
     ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
 
 t0 = Timer(2.0, messages, (0, "innkeeper1.wav"))
