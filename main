@@ -1,17 +1,55 @@
+#Still Under Test
+
 import tkinter as tk
 import random as r
 
-playerName = False
-playerName2 = False
+playerName, playerName2 = False, False
+rmdCards, checkCards = [[], []], [[False, False, False], [False, False, False]]
 
-rmdCards = [[], []]
+def gR():
+    return r.randint(0,12)
 
-def pickBetweenThreeNumber(plr):
-    
 def getNumber(plr):
-    ran = r.randint(0,12)
+    ran = gR()
     for i in rmdCards[plr]:
         if (i == ran):
             return getNumber()
     rmdCards[plr].append(ran)
     return ran
+
+def pickBetweenThreeNumber(plr):
+    r0, r1, r2 = checkCards[plr][0], checkCards[plr][1], checkCards[plr][2]
+    if (type(r0) != int):
+        r0 = False
+    if (type(r1) != int):
+        r1 = False
+    if (type(r2) != int):
+        r2 = False
+        
+    if (r0 == False):
+        r0 = gR()
+        for i in rmdCards[plr]:
+            if (i == r0):
+                return pickBetweenThreeNumber(plr)
+    if (r1 == False):
+        r1 = gR()
+        for i in rmdCards[plr]:
+            if (i == r1):
+                return pickBetweenThreeNumber(plr)
+    if (r2 == False):
+        r2 = gR()
+        for i in rmdCards[plr]:
+            if (i == r2):
+                return pickBetweenThreeNumber(plr)
+    return r0, r1, r2
+
+def startGame():
+    r0, r1, rS0, rS1 = getNumber(0), getNumber(0), getNumber(1), getNumber(1)
+    print(str(r0) + "    " + str(r1) + "    " + str(rS0) + "    " + str(rS1))
+    a, b, c = pickBetweenThreeNumber(0)
+    print(str(a) + "    " + str(b) + "    " + str(c))
+
+startGame()
+
+#def whoWon(fPlrCards, secPlrCards):
+    
