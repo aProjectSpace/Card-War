@@ -40,29 +40,29 @@ def launchTimer(num):
     global t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12
     if (num == 0):
         t0.start()
-    elseif (num == 1):
+    elif (num == 1):
         t1.start()
-    elseif (num == 2):
+    elif (num == 2):
         t2.start()
-    elseif (num == 3):
+    elif (num == 3):
         t3.start()
-    elseif (num == 4):
+    elif (num == 4):
         t4.start()
-    elseif (num == 5):
+    elif (num == 5):
         t5.start()
-    elseif (num == 6):
+    elif (num == 6):
         t6.start()
-    elseif (num == 7): 
+    elif (num == 7): 
         t7.start()
-    elseif (num == 8): 
+    elif (num == 8): 
         t8.start()
-    elseif (num == 9):
+    elif (num == 9):
         t9.start()
-    elseif (num == 10):
+    elif (num == 10):
         t10.start()
-    elseif (num == 11):
+    elif (num == 11):
         t11.start()
-    elseif (num == 12): 
+    elif (num == 12): 
         t12.start()
                               
 launchTimer(0)
