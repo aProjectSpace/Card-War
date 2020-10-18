@@ -1,5 +1,11 @@
-import tKinter as tk
+import tkinter as tk
 import random as r
 
 playerName = False
 playerName2 = False
+
+rmdCards = [ [ ], [ ] ]
+
+def getNumber():
+    ran = r.randint(0,12)
+rmdcards=[0]
