@@ -18,8 +18,8 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 "Innkeeper: May he who is known as *I am* lighten your path.\n"]
 
 def messages(num, sound):
-    print(msg[num])
-    ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
+
+    #ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
     if (num != 12):
         launchTimer(num+1)
 
