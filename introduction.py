@@ -24,9 +24,11 @@ def messages(num, sound):
 
 def launchTimer(num):
     if (num == 0):
-        Timer(2.0, messages, (0, "innkeeper1.wav)).start()
+        t0 = Timer(2.0, messages, (0, "innkeeper1.wav))
+        t0.start()
     elseif (num == 1):
-        Timer(12.0, messages, (1, "me1.wav")).start()
+        t1 = Timer(12.0, messages, (1, "me1.wav"))
+        t1.start()
     elseif (num == 2):
         Timer(5.0, messages, (2, "innkeeper2.wav").start()
     elseif (num == 3):
