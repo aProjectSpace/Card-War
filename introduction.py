@@ -17,21 +17,8 @@ msg = ["Innkeeper: Huh..? You don't look like a peasant. Take a seat and have so
 "Me: What do I have to lose? Guess lollygagging is allowed now.\n",
 "Innkeeper: May he who is known as *I am* lighten your path.\n"]
 
-t0 = Timer(2.0, messages, (0, "innkeeper1.wav))
-t1 = Timer(12.0, messages, (1, "me1.wav"))
-t2 = Timer(5.0, messages, (2, "innkeeper2.wav"))
-t3 = Timer(8.0, messages, (3, "me2.wav"))
-t4 = Timer(9.0, messages, (4, "innkeeper3.wav"))
-t5 = Timer(4.0, messages, (5, "me3.wav"))
-t6 = Timer(7.0, messages, (6, "innkeeper4.wav"))
-t7 = Timer(5.0, messages, (7, "me4.wav"))
-t8 = Timer(40.0, messages, (8, "innkeeper5.wav"))
-t9 = Timer(4.0, messages, (9, "me5.wav"))
-t10 = Timer(11.0, messages, (10, "innkeeper6.wav"))
-t11 = Timer(6.0, messages, (11, "me6.wav"))
-t12 = Timer(7.0, messages, (12, "innkeeper7.wav"))
-
 def messages(num, sound):
+    print(msg[num])
     #ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
     if (num != 12):
         launchTimer(num+1)
@@ -64,5 +51,19 @@ def launchTimer(num):
         t11.start()
     elif (num == 12): 
         t12.start()
+
+t0 = Timer(2.0, messages, (0, "innkeeper1.wav"))
+t1 = Timer(12.0, messages, (1, "me1.wav"))
+t2 = Timer(5.0, messages, (2, "innkeeper2.wav"))
+t3 = Timer(8.0, messages, (3, "me2.wav"))
+t4 = Timer(9.0, messages, (4, "innkeeper3.wav"))
+t5 = Timer(4.0, messages, (5, "me3.wav"))
+t6 = Timer(7.0, messages, (6, "innkeeper4.wav"))
+t7 = Timer(5.0, messages, (7, "me4.wav"))
+t8 = Timer(40.0, messages, (8, "innkeeper5.wav"))
+t9 = Timer(4.0, messages, (9, "me5.wav"))
+t10 = Timer(11.0, messages, (10, "innkeeper6.wav"))
+t11 = Timer(6.0, messages, (11, "me6.wav"))
+t12 = Timer(7.0, messages, (12, "innkeeper7.wav"))
                               
 launchTimer(0)
