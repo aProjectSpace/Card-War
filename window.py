@@ -1,4 +1,5 @@
 import tkinter as tk
+import main
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -8,24 +9,23 @@ class Application(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.hi_there = tk.Button(self)
-        self.hi_there["text"] = "Start Game"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.pack(side="top")
+        self.startGame = tk.Button(self, text="Start Game", fg="blue", command=self.launchGame)
+        self.startGame.pack(side="top")
 
-        self.option = tk.Button(self, text="AI", fg="green", command=self.changeText)
+        self.option = tk.Button(self, text="AI", fg="grey", command=self.changeText)
         self.option.pack()
         self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
         self.quit.pack(side="bottom")
+        print(self.option["text"])
 
-    def say_hi(self):
-        print("hi there, everyone!")
+    def launchGame(self):
+        main.executeIt()
 
     def changeText(self):
-        if (self.option.configure('text')[4] == "AI"):
-            self.option.configure(text="2 Player")
+        if (self.option["text"] == "AI"):
+            self.option["text"] = "2 Player"
         else:
-            self.option.configure(text="AI")
+            self.option["text"] = "AI"
 
 root = tk.Tk()
 app = Application(master=root)
