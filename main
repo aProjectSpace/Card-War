@@ -1,10 +1,8 @@
-#Still Under Test
-
 import tkinter as tk
 import random as r
 
 playerName, playerName2 = False, False
-rmdCards, checkCards = [[], []], [[False, False, False], [False, False, False]]
+rmdCards, checkCards = [[], []], [["", "", ""], ["", "", ""]]
 
 def gR():
     return r.randint(0,12)
@@ -13,7 +11,7 @@ def getNumber(plr):
     ran = gR()
     for i in rmdCards[plr]:
         if (i == ran):
-            return getNumber()
+            return getNumber(plr)
     rmdCards[plr].append(ran)
     return ran
 
@@ -41,15 +39,12 @@ def pickBetweenThreeNumber(plr):
         for i in rmdCards[plr]:
             if (i == r2):
                 return pickBetweenThreeNumber(plr)
-    return r0, r1, r2
+    return r0 or -1, r1 or -1, r2 or -1
 
-def startGame():
+def executeIt():
     r0, r1, rS0, rS1 = getNumber(0), getNumber(0), getNumber(1), getNumber(1)
-    print(r0 + "    " + r1 + "    " + rS0 + "    " + rS1)
+    print(str(r0) + "    " + str(r1) + "    " + str(rS0) + "    " + str(rS1))
     a, b, c = pickBetweenThreeNumber(0)
-    print(a + "    " + strb + "    " + c)
-
-startGame()
+    print(str(a) + "    " + str(b) + "    " + str(c))
 
 #def whoWon(fPlrCards, secPlrCards):
-    
