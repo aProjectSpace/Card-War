@@ -19,7 +19,7 @@ msg = ["Weird person: You! You don't look like a peasant. Take a seat and have s
 "Weird person: May he who is known as *I am* lighten your path.\n"]
 
 def startGame():
-    exports.executeIt()
+    exports.startGame()
 
 def launchTimer(num):
     global t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13
@@ -49,7 +49,7 @@ def launchTimer(num):
         t11.start()
     elif (num == 12): 
         t12.start()
-        ni = Timer(5.7, startGame, ())
+        ni = Timer(12.5, startGame, ())
         ni.start()
 
 def messages(num, sound):
@@ -59,7 +59,7 @@ def messages(num, sound):
     if (sound):
         ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
 
-t0 = Timer(1.0, messages, (12, "ikSnd/innkeeper7.wav"))
+t0 = Timer(1.0, messages, (11, "meSnd/me6.wav"))
 t1 = Timer(12.5, messages, (1, "meSnd/me1.wav"))
 t2 = Timer(8.8, messages, (2, "ikSnd/innkeeper2.wav"))
 t3 = Timer(2.5, messages, (3, "meSnd/me2.wav"))
