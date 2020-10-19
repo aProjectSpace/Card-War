@@ -1,7 +1,7 @@
 import tkinter as tk
 import random as r
 
-rmdCards, checkCards = [], [False, False, False]]
+rmdCards, checkCards = [], [False, False, False]
 
 def gR():
     return r.randint(0,12)
