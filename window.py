@@ -9,7 +9,7 @@ class Application(tk.Frame):
 
     def create_widgets(self):
         self.hi_there = tk.Button(self)
-        self.hi_there["text"] = "Hello World\n(click me)"
+        self.hi_there["text"] = "Start Game"
         self.hi_there["command"] = self.say_hi
         self.hi_there.pack(side="top")
 
@@ -22,8 +22,7 @@ class Application(tk.Frame):
         print("hi there, everyone!")
 
     def changeText(self):
-        print(self.option.config('text')[4])
-        if (self.option.configure('text') == "AI"):
+        if (self.option.configure('text')[4] == "AI"):
             self.option.configure(text="2 Player")
         else:
             self.option.configure(text="AI")
