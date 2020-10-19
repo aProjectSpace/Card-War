@@ -1,55 +1,40 @@
 import tkinter as tk
 import random as r
 
-playerName, playerName2 = False, False
-bot = False
-rmdCards, checkCards = [[], []], [["", "", ""], ["", "", ""]]
-
-def setBotOrPlayer(v):
-    global botOrPlayer
-    botOrPlayer = v
+rmdCards, checkCards = [], [False, False, False]]
 
 def gR():
     return r.randint(0,12)
 
-def getNumber(plr):
+def getNumber():
     ran = gR()
-    for i in rmdCards[plr]:
+    for i in rmdCards:
         if (i == ran):
-            return getNumber(plr)
-    rmdCards[plr].append(ran)
+            return getNumber()
+    rmdCards.append(ran)
     return ran
 
-def pickBetweenThreeNumber(plr):
-    r0, r1, r2 = checkCards[plr][0], checkCards[plr][1], checkCards[plr][2]
-    if (type(r0) != int):
-        r0 = False
-    if (type(r1) != int):
-        r1 = False
-    if (type(r2) != int):
-        r2 = False
-        
+def pickBetweenThreeNumber():
+    r0, r1, r2 = checkCards[0], checkCards[1], checkCards[2]
     if (r0 == False):
         r0 = gR()
-        for i in rmdCards[plr]:
+        for i in rmdCards:
             if (i == r0):
-                return pickBetweenThreeNumber(plr)
+                return pickBetweenThreeNumber()
     if (r1 == False):
         r1 = gR()
-        for i in rmdCards[plr]:
+        for i in rmdCards:
             if (i == r1):
-                return pickBetweenThreeNumber(plr)
+                return pickBetweenThreeNumber()
     if (r2 == False):
         r2 = gR()
-        for i in rmdCards[plr]:
+        for i in rmdCards:
             if (i == r2):
-                return pickBetweenThreeNumber(plr)
+                return pickBetweenThreeNumber()
     return r0 or -1, r1 or -1, r2 or -1
 
-def executeIt():
-    r0, r1, rS0, rS1 = getNumber(0), getNumber(0), getNumber(1), getNumber(1)
-    print(str(r0) + "    " + str(r1) + "    " + str(rS0) + "    " + str(rS1))
-    a, b, c = pickBetweenThreeNumber(0)
-    print(str(a) + "    " + str(b) + "    " + str(c))
+def startGame():
+    r0, r1, rS0, rS1 = getNumber(), getNumber()
+    a, b, c = pickBetweenThreeNumber()
 
 #def whoWon(fPlrCards, secPlrCards):
