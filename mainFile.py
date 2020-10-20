@@ -1,4 +1,5 @@
-from PIL import ImageTk,Image
+from PIL import ImageTk
+import os
 from functools import partial
 import introduction as intro
 from threading import Timer
@@ -178,23 +179,23 @@ def createGameWin():
     master.geometry("800x600")
     master.title("Card Battle!")
     master.resizable(False, False)
-    c0 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/0.png")
-    c1 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/1.png")
-    c2 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/2.png")
-    c3 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/3.png")
-    c4 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/4.png")
-    c5 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/5.png")
-    c6 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/6.png")
-    c7 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/7.png")
-    c8 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/8.png")
-    c9 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/9.png")
-    c10 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/10.png")
-    c11 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/11.png")
-    c12 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/12.png")
-    c13 = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/13.png")
+    c0 = ImageTk.PhotoImage(file = os.getcwd()+"/images/0.png")
+    c1 = ImageTk.PhotoImage(file = os.getcwd()+"/images/1.png")
+    c2 = ImageTk.PhotoImage(file = os.getcwd()+"/images/2.png")
+    c3 = ImageTk.PhotoImage(file = os.getcwd()+"/images/3.png")
+    c4 = ImageTk.PhotoImage(file = os.getcwd()+"/images/4.png")
+    c5 = ImageTk.PhotoImage(file = os.getcwd()+"/images/5.png")
+    c6 = ImageTk.PhotoImage(file = os.getcwd()+"/images/6.png")
+    c7 = ImageTk.PhotoImage(file = os.getcwd()+"/images/7.png")
+    c8 = ImageTk.PhotoImage(file = os.getcwd()+"/images/8.png")
+    c9 = ImageTk.PhotoImage(file = os.getcwd()+"/images/9.png")
+    c10 = ImageTk.PhotoImage(file = os.getcwd()+"/images/10.png")
+    c11 = ImageTk.PhotoImage(file = os.getcwd()+"/images/11.png")
+    c12 = ImageTk.PhotoImage(file = os.getcwd()+"/images/12.png")
+    c13 = ImageTk.PhotoImage(file = os.getcwd()+"/images/13.png")
 
     can = tk.Canvas(master, bg="black", height=600, width=800)
-    img = ImageTk.PhotoImage(file = "E:/Serge/Programming/python/CardBattle/images/bckRnd.png")
+    img = ImageTk.PhotoImage(file = os.getcwd()+"/images/bckRnd.png")
     can.create_image(400, 350, image=img)
     can.pack(side="bottom")
 
