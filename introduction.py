@@ -1,9 +1,9 @@
-import time
-import os
-import winsound as ws
-from threading import Timer
-import mainFile
+from threading import Timer #To add Timer for Messages and Audio
+import winsound as ws #To use ws.PlaySound to execute audio
+import mainFile #To execute startGame def and launch the game window
+import os #to check using os.getcwd() where the folder path
 
+#msg is the message table
 msg = ["Weird person: You! You don't look like a peasant. Take a seat and have some ale, might consider sharing your story with me? And please, ignore my accent.\n",
 "Me: Very well. I was a guard in the palace, they conspired against me once I didn't accept their deal to smuggle goods.\n",
 "Weird person: What did the queen do?\n",
@@ -18,11 +18,12 @@ msg = ["Weird person: You! You don't look like a peasant. Take a seat and have s
 "Me: What do I have to lose? Guess lollygagging is allowed now.\n",
 "Weird person: May he who is known as *I am* lighten your path.\n"]
 
+#To execute startGame def and launch the game window
 def startGame():
     mainFile.startGame()
 
+#To start the timer t0 -> t12 and launchStartGame
 def launchTimer(num):
-    global t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13
     if (num == 0):
         t0.start()
     elif (num == 1):
@@ -49,15 +50,17 @@ def launchTimer(num):
         t11.start()
     elif (num == 12): 
         t12.start()
-        lwT.start()
+        launchStartGame.start()
 
-def messages(num, sound):
+#To send messages and start audio Plus launch the timer of the next msg and audio
+def messages(num, soundPath):
     print(msg[num])
     if (num != 12):
         launchTimer(num+1)
-    if (sound):
-        ws.PlaySound(os.getcwd()+"/"+sound, ws.SND_NODEFAULT)
+    if (soundPath):
+        ws.PlaySound(os.getcwd()+"/"+soundPath, ws.SND_NODEFAULT)
 
+#Timers: variableName = Timer(second.milisecond, def, (arguments1, arguments2))
 t0 = Timer(1.0, messages, (0, "ikSnd/innkeeper1.wav"))
 t1 = Timer(12.5, messages, (1, "meSnd/me1.wav"))
 t2 = Timer(8.8, messages, (2, "ikSnd/innkeeper2.wav"))
@@ -71,4 +74,4 @@ t9 = Timer(47.5, messages, (9, "meSnd/me5.wav"))
 t10 = Timer(1.8, messages, (10, "ikSnd/innkeeper6.wav"))
 t11 = Timer(9.5, messages, (11, "meSnd/me6.wav"))
 t12 = Timer(5.8, messages, (12, "ikSnd/innkeeper7.wav"))
-lwT = Timer(12.5, startGame)
+launchStartGame = Timer(12.5, startGame)
