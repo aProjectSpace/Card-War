@@ -1,26 +1,30 @@
-from PIL import ImageTk
-import os
-from functools import partial
-import introduction as intro
-from threading import Timer
+from PIL import ImageTk #To load images into the window
+import os #to check using os.getcwd() where the folder path
+from functools import partial #To add arguments 
+import introduction as intro #To launch first msg and audio after pressing startGame
 import tkinter as tk
 import random as r
 
 
-createLaunchWindowRoot = False
-createGameWindowRoot = False
-firstTimeFirstPlayerWins = True
-points = [0, 0]
+createGameWindowRoot = False #To destroy game window on game finishs
+firstTimeFirstPlayerWins = True #Added it so Player wins Bot at first time for a special event
+points = [0, 0] #Scors of Player and Bot..
+#To check if a player has these cards. He can't pick a card which he doesn't have.
 cardAvailable = [[False, False, False, False, False, False, False, False, False, False, False, False, False, False], [True, False, False, False, False, False, False, False, False, False, False, False, False, False]]
+#To check which card he picked before starting a round
 cardPicked = [False, False, False, False, False, False, False, False, False, False, False, False, False, False]
+#No duplicate cards are allowed, so this table is to check which card he has already received
 removeCards = [[], [0]]
 
+#To get a random number between 0 and 13
 def getRandomNumber():
     return r.randint(0,13)
 
+#To start game window from introduction.py
 def startGame():
     createGameWin()
 
+#get a random number for either the player or bot
 def getNumber(plr):
     ran = getRandomNumber()
     for i in removeCards[plr]:
@@ -29,37 +33,39 @@ def getNumber(plr):
     removeCards[plr].append(ran)
     return ran
 
-def pickBetweenThreeNumber():
+#A small joke, game are all about fun.
+def pickBetweenThreeNumberJoke():
     cP = input("You've WON the first round! Exclusively you can pick 1 of three cards! Pick between: 13, 7 and 10\n")
     print("I don't care what you picked! Did you actually believe we'll let you win by picking a free number??")
 
-def addCards(firstTimeGettingCards):
-    txt = "You've had the cards: "
-    if (firstTimeGettingCards):
+#Add cards into a player deck.
+def addCards(firstTimeGettingCards):#First argument is so players receive 2 cards.
+    txt = "You've had the cards: "#main text
+    if (firstTimeGettingCards):#A small error appeared used this to avoid it
         a = getNumber(0)
         b = getNumber(0)
         addCard(0, [a, b])
         addCard(1, [getNumber(1), getNumber(1)])
         print("You've received the cards: "+str(a)+" and "+str(b)+"!\n")
         return
-    global firstTimeFirstPlayerWins
-    if (firstTimeFirstPlayerWins):
+    global firstTimeFirstPlayerWins#For the joke.
+    if (firstTimeFirstPlayerWins):#For the joke PLUS they will receive 3 cards.
         a = 0
         b = 0
         c = 0
-        num = -1
-        for i in cardAvailable[0]:
-            num = num + 1
-            if (i and (num != a or num != b or num != c)):
-                txt = txt+str(num)+" "
-        pickBetweenThreeNumber()
-        a, b, c =  getNumber(0), getNumber(0), getNumber(0)
-        addCard(0, [a, b, c])
-        addCard(1, [getNumber(1), getNumber(1), getNumber(1)])
-        firstTimeFirstPlayerWins = False
+        num = -1#In python tables index starts with 0 because 0 is a card number in this game
+        for index in cardAvailable[0]:#To check which cards I already have to add them with the print.
+            num = num + 1#Didn't know how to check colums so I used this method.
+            if (index):#If index == true
+                txt = txt+str(num)+" "#Add card number in print.
+        pickBetweenThreeNumberJoke()#The joke.
+        a, b, c =  getNumber(0), getNumber(0), getNumber(0)#Get 3 random numbers
+        addCard(0, [a, b, c])#add the 3 card into available table for Player
+        addCard(1, [getNumber(1), getNumber(1), getNumber(1)])#add 3 card into available table for Player
+        firstTimeFirstPlayerWins = False#Disable the joke.
         print(txt+"; And you received: "+str(a)+", "+str(b)+", "+str(c)+"!\n")
-    else:
-        num = -1
+    else:#If the joke has already been seen, means they'll receive only 1 card each.
+        num = -1#Same method as above
         for i in cardAvailable[0]:
             num = num + 1
             if (i):
@@ -69,117 +75,111 @@ def addCards(firstTimeGettingCards):
         addCard(1, [getNumber(1)])
         print(txt+"; And you received: "+str(a)+"!\n")
 #______________________________________________________________________________________________________________________________________
-def createLaunchWin():
-    global createLaunchWindowRoot
-    master = tk.Tk()
-    createLaunchWindowRoot = master
-    master.geometry("226x60")
-    master.title("Card Battle!")
-    startGameBut = tk.Button(master, text="Start Game", fg="blue", command=startInto)
-    startGameBut.pack(side="top")
-    quitGameBut = tk.Button(master, text="Quit", fg="red", command=master.destroy)
-    quitGameBut.pack(side="bottom")
+def createLaunchWin():#Create the first window
+    master = tk.Tk() #The window
+    master.geometry("226x60")#Geometry which is the window size.
+    master.title("Card Battle!")#Window title
+    startGameBut = tk.Button(master, text="Start Game", fg="blue", command=partial(startInto, master))#Start Game Button
+    startGameBut.pack(side="top")#Set position at top
+    quitGameBut = tk.Button(master, text="Quit", fg="red", command=master.destroy)#Quit game button
+    quitGameBut.pack(side="bottom")#Set position at bottom
 
-def startInto():
-    global createLaunchWindowRoot
+def startInto(master):#To Start Audio/Message of introduction.py and destroy the launch window
     intro.launchTimer(0)
-    createLaunchWindowRoot.destroy()
+    master.destroy()
 
-def pickCard(but, num):
+def pickCard(but, cardNumber):#On pressing pick card button to add it in cardPicked and add some print texts
     global cardAvailable
-    if (cardAvailable[0][num] == False):
+    if (cardAvailable[0][cardNumber] == False): #If player doesn't have the card
         print("Hey don't touch me! You don't have me.\n")
         return
-    a = False
     if (but["text"] == "Remove"):
         but["text"] = "Pick Me"
         print("You dare question my number?!\n")
-        a = True
+        b = -1
+        for i in cardAvailable[0]:
+            b = b + 1
+            if (b == cardNumber):
+                cardPicked[b] = False
     else:
         but["text"] = "Remove"
         print("I'll be as fast as my number!\n")
-    if (a):
         b = -1
         for i in cardAvailable[0]:
             b = b + 1
-            if (b == num):
-                cardPicked[b] = False
-    else:
-        b = -1
-        for i in cardAvailable[0]:
-            b = b + 1
-            if (b == num):
+            if (b == cardNumber):
                 cardPicked[b] = True
 
 def addPointToScore(who):
-    global points
-    global createGameWindowRoot
-    points[who] = points[who]+1
-    print("The scores are "+str(points[0])+" for Player and "+str(points[1])+" for Bot. Hail User! Hail Processeur.\n")
-    if (points[0] == 3):
+    global points #score table
+    global createGameWindowRoot #If a winner has been decided to close window
+    points[who] = points[who]+1 #add 1 score to the winner's total
+    print("The scores are "+str(points[0])+" for Player and "+str(points[1])+" for Bot. Hail User! Hail Processeur.\n")#Score message
+    if (points[0] == 3): #if Player has 3 points he wins and close the window
         print("Player WINS!")
         createGameWindowRoot.destroy()
         return
-    elif(points[1] == 3):
+    elif(points[1] == 3): #if bot has 3 points he wins and close the window
         print("Bot WINS!")
         createGameWindowRoot.destroy()
         return
-    addCards(False)
+    addCards(False) #To add cards of game didn't end
 
-def startRound():
-    global cardPicked
-    plrColumn = -1
-    botColumn = -1
-    checkIfHeUsedACard = False
-    player = 0
-    botTable = []
-    bot = 0
-    for i in cardPicked:
-        plrColumn = plrColumn + 1
-        if (i):
+def startRound(): #Start the round, check if he picked a card, Check who wins.
+    global cardPicked #table for which cards the Player has picked
+    plrColumn = -1 #Check available cards column
+    botColumn = -1 #Check available cards column
+    checkIfHeUsedACard = False #To check if he picked a card or no.
+    player = 0 #player total card sum, card 5 + card 4 = speed 9!
+    botTable = [] #to check what cards does a bot have.
+    bot = 0 #bot total card sum.
+    for i in cardPicked: #check what cards a player has used and set their column in -> To second line.
+        plrColumn = plrColumn + 1 # -> card available table to False: can't use can't twice.
+        if (i): #if one of the index(i) is equal to true means he picked a card.
             cardAvailable[0][plrColumn] = False
             checkIfHeUsedACard = True
             player = player + plrColumn
-    if (checkIfHeUsedACard == False):
+    if (checkIfHeUsedACard == False): #After we've checked if he selected a card, if he didn't send message and return def.
         print("Pick at least 1 card! We need card fuel!")
         return
-    for i in cardAvailable[1]:
+    for i in cardAvailable[1]: #Check available cards for bot
         botColumn = botColumn + 1
         if (i):
             botTable.append(botColumn)
     for i in botTable:
         bot = bot + i
         cardAvailable[1][i] = False
-        if (firstTimeFirstPlayerWins):
-            if (bot < player):
+        if (firstTimeFirstPlayerWins): #To make sure the joke will be seen
+            if (bot < player): #If bot total cards number lower than player's the FOR breaks and continues.
                 break
-        else:
+        else: #if the joke has passed, we'll make sure that the user will have a hard time.
             if (bot > player):
                 break
 
-    if (player>bot or player==bot):
-        addPointToScore(0)
+    if (player>bot or player==bot): #Draw are not accepted. Player wins by default.
+        addPointToScore(0) #Add point to Player
     else:
-        if (firstTimeFirstPlayerWins):
+        if (firstTimeFirstPlayerWins): #If a bug made a bot won, will make sure the joke will be seen...
             addPointToScore(0)
         else:
-            addPointToScore(1)
+            addPointToScore(1) #If the joke has already been seen, the bot will win.
+    #After using the cards, making sure he can't use them again.
     cardPicked = [False, False, False, False, False, False, False, False, False, False, False, False, False, False]
 
-def addCard(who, cTbl):
+def addCard(who, cTbl):#Add card to availabe table so player or bot can use the card.
     global cardAvailable
     for i in cTbl:
         cardAvailable[who][i] = True
 
-def createGameWin():
-    global createGameWindowRoot
+def createGameWin(): #Create game window
+    global createGameWindowRoot #So we can destroy the window once game finish
 
-    master = tk.Tk()
-    createGameWindowRoot = master
-    master.geometry("800x600")
-    master.title("Card Battle!")
-    master.resizable(False, False)
-    c0 = ImageTk.PhotoImage(file = os.getcwd()+"/images/0.png")
+    master = tk.Tk() #The window
+    createGameWindowRoot = master #So we can destroy the window once game finish
+    master.geometry("800x600")#Geometry, window size.
+    master.title("Card Battle!")#Window title
+    master.resizable(False, False)#Window is not resizable by width or height.
+    c0 = ImageTk.PhotoImage(file = os.getcwd()+"/images/0.png") #The card photos
     c1 = ImageTk.PhotoImage(file = os.getcwd()+"/images/1.png")
     c2 = ImageTk.PhotoImage(file = os.getcwd()+"/images/2.png")
     c3 = ImageTk.PhotoImage(file = os.getcwd()+"/images/3.png")
@@ -194,11 +194,11 @@ def createGameWin():
     c12 = ImageTk.PhotoImage(file = os.getcwd()+"/images/12.png")
     c13 = ImageTk.PhotoImage(file = os.getcwd()+"/images/13.png")
 
-    can = tk.Canvas(master, bg="black", height=600, width=800)
-    img = ImageTk.PhotoImage(file = os.getcwd()+"/images/bckRnd.png")
-    can.create_image(400, 350, image=img)
-    can.pack(side="bottom")
-
+    can = tk.Canvas(master, bg="black", height=600, width=800)#The game window canvas.
+    img = ImageTk.PhotoImage(file = os.getcwd()+"/images/bckRnd.png")#The background horse race field.
+    can.create_image(400, 350, image=img) #Setting the image and it's size.
+    can.pack(side="bottom")#Setting position at bottom
+#Card's canvases and their image.
     can0 = tk.Canvas(master, bg="black", height=90, width=48)
     can0.create_image(25, 33, image=c0)
     can0.place(x=71, y=3)
@@ -254,13 +254,13 @@ def createGameWin():
     can13 = tk.Canvas(master, bg="black", height=90, width=48)
     can13.create_image(25, 33, image=c13)
     can13.place(x=745, y=3)
-
+#Start round button
     goBut = tk.Button(master, text="Go!", bg="black", fg="red", width=8, height=2, command=startRound).place(x=4, y=3)
-    quitBut = tk.Button(master, text="Quit", bg="black", fg="red", width=8, height=2, command=createGameWindowRoot.destroy).place(x=4, y=57)
-    
+    quitBut = tk.Button(master, text="Quit", bg="black", fg="red", width=8, height=2, command=master.destroy).place(x=4, y=57)
+#Select a card buttons.
     cBut0 = tk.Button(master, text="Pick Me", bg="black", fg="red", width=6, height = 1)
-    cBut0["command"] = partial(pickCard, cBut0, 0)
-    cBut0.place(x=71, y=68)
+    cBut0["command"] = partial(pickCard, cBut0, 0)#Used partial so we can send arguments with def
+    cBut0.place(x=71, y=68)#Set button's width and height position
 
     cBut1 = tk.Button(master, text="Pick Me", bg="black", fg="red", width=6, height = 1)
     cBut1["command"] = partial(pickCard, cBut1, 1)
@@ -313,7 +313,7 @@ def createGameWin():
     cBut13 = tk.Button(master, text="Pick Me", bg="black", fg="red", width=6, height = 1)
     cBut13["command"] = partial(pickCard, cBut13, 13)
     cBut13.place(x=745, y=68)
-    addCards(True)
-    master.mainloop()
+    addCards(True) #Can't start the game if players didn't have card.
+    master.mainloop() #render the images.
 
 createLaunchWin()
