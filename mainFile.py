@@ -6,45 +6,43 @@ import tkinter as tk
 import random as r
 
 
-clwM = False
-cgwM = False
-fWin = True
+createLaunchWindowRoot = False
+createGameWindowRoot = False
+firstTimeFirstPlayerWins = True
 points = [0, 0]
 cardAvailable = [[False, False, False, False, False, False, False, False, False, False, False, False, False, False], [True, False, False, False, False, False, False, False, False, False, False, False, False, False]]
 cardPicked = [False, False, False, False, False, False, False, False, False, False, False, False, False, False]
-rmdCards = [[], [0]]
+removeCards = [[], [0]]
 
-def gR():
+def getRandomNumber():
     return r.randint(0,13)
 
 def startGame():
     createGameWin()
 
 def getNumber(plr):
-    ran = gR()
-    smt = True
-    for i in rmdCards[plr]:
+    ran = getRandomNumber()
+    for i in removeCards[plr]:
         if (i == ran):
             return getNumber(plr)
-    rmdCards[plr].append(ran)
+    removeCards[plr].append(ran)
     return ran
 
 def pickBetweenThreeNumber():
     cP = input("You've WON the first round! Exclusively you can pick 1 of three cards! Pick between: 13, 7 and 10\n")
-    print("Did you actually believe we'll let you win??")
-    return int(cP)
+    print("I don't care what you picked! Did you actually believe we'll let you win by picking a free number??")
 
-def addCards(smthing):
+def addCards(firstTimeGettingCards):
     txt = "You've had the cards: "
-    if (smthing):
+    if (firstTimeGettingCards):
         a = getNumber(0)
         b = getNumber(0)
         addCard(0, [a, b])
         addCard(1, [getNumber(1), getNumber(1)])
         print("You've received the cards: "+str(a)+" and "+str(b)+"!\n")
         return
-    global fWin
-    if (fWin):
+    global firstTimeFirstPlayerWins
+    if (firstTimeFirstPlayerWins):
         a = 0
         b = 0
         c = 0
@@ -57,7 +55,7 @@ def addCards(smthing):
         a, b, c =  getNumber(0), getNumber(0), getNumber(0)
         addCard(0, [a, b, c])
         addCard(1, [getNumber(1), getNumber(1), getNumber(1)])
-        fWin = False
+        firstTimeFirstPlayerWins = False
         print(txt+"; And you received: "+str(a)+", "+str(b)+", "+str(c)+"!\n")
     else:
         num = -1
@@ -71,9 +69,9 @@ def addCards(smthing):
         print(txt+"; And you received: "+str(a)+"!\n")
 #______________________________________________________________________________________________________________________________________
 def createLaunchWin():
-    global clwM
+    global createLaunchWindowRoot
     master = tk.Tk()
-    clwM = master
+    createLaunchWindowRoot = master
     master.geometry("226x60")
     master.title("Card Battle!")
     startGameBut = tk.Button(master, text="Start Game", fg="blue", command=startInto)
@@ -82,9 +80,9 @@ def createLaunchWin():
     quitGameBut.pack(side="bottom")
 
 def startInto():
-    global clwM
+    global createLaunchWindowRoot
     intro.launchTimer(0)
-    clwM.destroy()
+    createLaunchWindowRoot.destroy()
 
 def pickCard(but, num):
     global cardAvailable
@@ -112,59 +110,59 @@ def pickCard(but, num):
             if (b == num):
                 cardPicked[b] = True
 
-def addPoint(who):
+def addPointToScore(who):
     global points
-    global cgwM
+    global createGameWindowRoot
     points[who] = points[who]+1
     print("The scores are "+str(points[0])+" for Player and "+str(points[1])+" for Bot. Hail User! Hail Processeur.\n")
     if (points[0] == 3):
         print("Player WINS!")
-        cgwM.destroy()
+        createGameWindowRoot.destroy()
         return
     elif(points[1] == 3):
         print("Bot WINS!")
-        cgwM.destroy()
+        createGameWindowRoot.destroy()
         return
     addCards(False)
 
 def startRound():
     global cardPicked
-    plrL = -1
-    botL = -1
-    check = False
-    plr = 0
-    botTbl = []
+    plrColumn = -1
+    botColumn = -1
+    checkIfHeUsedACard = False
+    player = 0
+    botTable = []
     bot = 0
     for i in cardPicked:
-        plrL = plrL + 1
+        plrColumn = plrColumn + 1
         if (i):
-            cardAvailable[0][plrL] = False
-            check = True
-            plr = plr + plrL
-    if (check == False):
+            cardAvailable[0][plrColumn] = False
+            checkIfHeUsedACard = True
+            player = player + plrColumn
+    if (checkIfHeUsedACard == False):
         print("Pick at least 1 card! We need card fuel!")
         return
     for i in cardAvailable[1]:
-        botL = botL + 1
+        botColumn = botColumn + 1
         if (i):
-            botTbl.append(botL)
-    for i in botTbl:
+            botTable.append(botColumn)
+    for i in botTable:
         bot = bot + i
         cardAvailable[1][i] = False
-        if (fWin):
-            if (bot < plr):
+        if (firstTimeFirstPlayerWins):
+            if (bot < player):
                 break
         else:
-            if (bot > plr):
+            if (bot > player):
                 break
 
-    if (plr>bot or plr==bot):
-        addPoint(0)
+    if (player>bot or player==bot):
+        addPointToScore(0)
     else:
-        if (fWin):
-            addPoint(0)
+        if (firstTimeFirstPlayerWins):
+            addPointToScore(0)
         else:
-            addPoint(1)
+            addPointToScore(1)
     cardPicked = [False, False, False, False, False, False, False, False, False, False, False, False, False, False]
 
 def addCard(who, cTbl):
@@ -173,10 +171,10 @@ def addCard(who, cTbl):
         cardAvailable[who][i] = True
 
 def createGameWin():
-    global cgwM
+    global createGameWindowRoot
 
     master = tk.Tk()
-    cgwM = master
+    createGameWindowRoot = master
     master.geometry("800x600")
     master.title("Card Battle!")
     master.resizable(False, False)
@@ -257,7 +255,7 @@ def createGameWin():
     can13.place(x=745, y=3)
 
     goBut = tk.Button(master, text="Go!", bg="black", fg="red", width=8, height=2, command=startRound).place(x=4, y=3)
-    quitBut = tk.Button(master, text="Quit", bg="black", fg="red", width=8, height=2, command=cgwM.destroy).place(x=4, y=57)
+    quitBut = tk.Button(master, text="Quit", bg="black", fg="red", width=8, height=2, command=createGameWindowRoot.destroy).place(x=4, y=57)
     
     cBut0 = tk.Button(master, text="Pick Me", bg="black", fg="red", width=6, height = 1)
     cBut0["command"] = partial(pickCard, cBut0, 0)
@@ -317,4 +315,4 @@ def createGameWin():
     addCards(True)
     master.mainloop()
 
-createGameWin()
+createLaunchWin()
